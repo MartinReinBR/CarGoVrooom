@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class AchievmentManager : MonoBehaviour
 {
+    [SerializeField]private GameObject UI;
+
     public List<Achievment> achievments;
 
-    public int integer;
-    public float floating_point;
+    public int score;
 
     public bool AchievmentUnlocked(string achievmentName)
     {
@@ -28,6 +29,7 @@ public class AchievmentManager : MonoBehaviour
     private void Start()
     {
         InitializeAchevments();
+        Obstacle.destroyedEvent += AddScore;
     }
 
     private void InitializeAchevments()
@@ -36,8 +38,9 @@ public class AchievmentManager : MonoBehaviour
             return;
 
         achievments = new List<Achievment>();
-        achievments.Add(new Achievment("First Kill!", "Get your first kill in the game.", (object o) => integer == 1));
-        achievments.Add(new Achievment("Five Kills!", "Get five kills", (object o) => integer == 5));
+        achievments.Add(new Achievment("First Blood!", "Destroy your first Obstacle.", (object o) => score == 1));
+        achievments.Add(new Achievment("Five Kills!", "Destroy five Obstacles", (object o) => score == 5));
+        achievments.Add(new Achievment("TENtaKILL!", "Destroy ten Obstacles", (object o) => score == 10));
     }
 
     private void Update()
@@ -51,8 +54,16 @@ public class AchievmentManager : MonoBehaviour
             return;
         foreach (var acheivment in achievments)
         {
-            acheivment.UpdateCompletion();
+            bool achievedNow = acheivment.UpdateCompletion();
+            if (achievedNow)
+            {
+                UI.GetComponent<UI>().ShowAchievment(acheivment.title, acheivment.description);
+            }
         }
+    }
+    public void AddScore()
+    {
+        score++;
     }
 }
 
@@ -71,16 +82,18 @@ public class Achievment
 
     public bool achieved;
 
-    public void UpdateCompletion()
+    public bool UpdateCompletion()
     {
         if (achieved)
-            return;
+            return false;
 
         if (RequirementsMet())
         {
-            Debug.Log($"{title}: {description}");
             achieved = true;
+            return true;
         }
+
+        return false;
     }
 
     public bool RequirementsMet()
