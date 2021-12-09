@@ -11,3 +11,5 @@ State pattern: in the Update() method in 'TankVehicle.cs' and 'BlueVehicle.cs'. 
 Composition pattern: in the 'TankVehicle.cs' and 'BlueVehicle.cs', both inheriting from the 'IVehicle.cs'. The methods that are inherited from the Interface are called in the 'PlayerCharacter.cs' Update() method. Iwanted the Tank and blue car to have some differences, so i couldn't use the same movement script. therfore i used the interface to make sure that the PlayerCharacter.cs can work with both.
 
 Observer pattern: I created a Event delegate in the 'Obstacle.cs' which both 'UI.cs' and 'AchievmentManager.cs' are subscribed to. When the Destroyed() method in the 'Obstacle.cs' gets called the AddScore() method in both 'UI.cs' and 'AchievmentManager.cs' are called which increments the score variable by 1.
+
+Assets are from a Unity course from https://learn.unity.com/
