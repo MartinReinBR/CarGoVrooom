@@ -1,101 +1,98 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BlueVehicle : MonoBehaviour ,IVehicle
 {
-    public Rigidbody rb;
+    private Rigidbody _rb;
 
-    [SerializeField] private float moveSpeed = 20f;
-    [SerializeField] private float turnSpeed = 30f;
-    [SerializeField] private float breakThrust = 500f;
-    private float horizontalInput;
-    private float forwardInput;
+    [SerializeField] private float _moveSpeed = 20f;
+    [SerializeField] private float _turnSpeed = 70f;
+    [SerializeField] private float _breakThrust = 500f;
+    private float _horizontalInput;
 
-    public int movementState = 0;
-    public bool playerInCar = false;
+    [SerializeField] private int _movementState = 0;
+    private bool _playerInCar = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerInCar)
+        if (_playerInCar)
         {
             //Make 2 buttons that can gear up and down.
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                rb.AddForce(transform.forward * breakThrust);
-                movementState = 0;
+                _rb.AddForce(transform.forward * _breakThrust);
+                _movementState = 0;
             }
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                if (movementState >= 0)
-                    movementState -= 1;
+                if (_movementState >= 0)
+                    _movementState -= 1;
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                if (movementState <= 3)
-                    movementState += 1;
+                if (_movementState <= 3)
+                    _movementState += 1;
             }
 
-            switch (movementState)
+            switch (_movementState)
             {
                 case -1:
-                    moveSpeed = -10f;
-                    breakThrust = 0f;
+                    _moveSpeed = -10f;
+                    _breakThrust = 0f;
                     break;
                 case 0:
-                    moveSpeed = 0f;
-                    breakThrust = 0f;
+                    _moveSpeed = 0f;
+                    _breakThrust = 0f;
                     break;
                 case 1:
-                    moveSpeed = 10f;
-                    breakThrust = 2000f;
+                    _moveSpeed = 10f;
+                    _breakThrust = 2000f;
                     break;
                 case 2:
-                    moveSpeed = 20f;
-                    breakThrust = 4000f;
+                    _moveSpeed = 20f;
+                    _breakThrust = 4000f;
                     break;
                 case 3:
-                    moveSpeed = 30f;
-                    breakThrust = 6000f;
+                    _moveSpeed = 30f;
+                    _breakThrust = 6000f;
                     break;
                 case 4:
-                    moveSpeed = 40f;
-                    breakThrust = 8000f;
+                    _moveSpeed = 40f;
+                    _breakThrust = 8000f;
                     break;
                 default:
-                    moveSpeed = 0f;
+                    _moveSpeed = 0f;
                     break;
             }
 
-            horizontalInput = Input.GetAxisRaw("Horizontal");
+            _horizontalInput = Input.GetAxisRaw("Horizontal");
         }
     }
 
     private void FixedUpdate()
     {
-        if (movementState != 0)
+        if (_movementState != 0)
         {
-            transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
-            rb.MovePosition(transform.position + (transform.forward * moveSpeed * Time.deltaTime));
+            transform.Rotate(Vector3.up, Time.deltaTime * _turnSpeed * _horizontalInput);
+            _rb.MovePosition(transform.position + (transform.forward * _moveSpeed * Time.deltaTime));
         }
     }
 
     public void PlayerEnterCar()
     {
-        playerInCar = true;
+        _playerInCar = true;
     }
 
     public void PlayerExitCar()
     {
-        playerInCar = false;
-        rb.AddForce(transform.forward * breakThrust);
-        movementState = 0;
+        _playerInCar = false;
+        _rb.AddForce(transform.forward * _breakThrust);
+        _movementState = 0;
     }
 }

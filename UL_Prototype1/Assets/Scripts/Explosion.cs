@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    ParticleSystem _explosion;
+    private ParticleSystem _explosion;
 
     // Start is called before the first frame update
     private void Awake()

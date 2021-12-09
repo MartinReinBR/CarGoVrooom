@@ -33,10 +33,6 @@ public class PlayerCamera : MonoBehaviour
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             player.transform.Rotate(Vector3.up * mouseX);
         }
-        if (isPlayerInCar)
-        {
-            //transform.position = player.transform.position + _cameraOffsetCar;
-        }
     }
 
     public void PlayerEnterCar()
@@ -55,7 +51,7 @@ public class PlayerCamera : MonoBehaviour
 
     IEnumerator AdjustCarCamera()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
 
         transform.position = player.transform.position + _cameraOffsetCar;
     }

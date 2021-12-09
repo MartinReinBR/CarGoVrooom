@@ -9,7 +9,7 @@ public class AchievmentManager : MonoBehaviour
 
     public List<Achievment> achievments;
 
-    public int score;
+    private int _score;
 
     public bool AchievmentUnlocked(string achievmentName)
     {
@@ -38,9 +38,9 @@ public class AchievmentManager : MonoBehaviour
             return;
 
         achievments = new List<Achievment>();
-        achievments.Add(new Achievment("First Blood!", "Destroy your first Obstacle.", (object o) => score == 1));
-        achievments.Add(new Achievment("Five Kills!", "Destroy five Obstacles", (object o) => score == 5));
-        achievments.Add(new Achievment("TENtaKILL!", "Destroy ten Obstacles", (object o) => score == 10));
+        achievments.Add(new Achievment("First Blood!", "Destroy your first Obstacle.", (object o) => _score == 1));
+        achievments.Add(new Achievment("Five Kills!", "Destroy five Obstacles", (object o) => _score == 5));
+        achievments.Add(new Achievment("TENtaKILL!", "Destroy ten Obstacles", (object o) => _score == 10));
     }
 
     private void Update()
@@ -63,7 +63,7 @@ public class AchievmentManager : MonoBehaviour
     }
     public void AddScore()
     {
-        score++;
+        _score++;
     }
 }
 

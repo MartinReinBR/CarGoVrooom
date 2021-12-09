@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    public Rigidbody rb;
-    public Collider _collider;
-    [SerializeField]public GameObject playerCamera;
-    public GameObject CurrentCar;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Collider _collider;
+    [SerializeField] private GameObject UI;
+    [SerializeField]private GameObject _playerCamera;
+    [SerializeField]private GameObject _currentCar;
 
-    [SerializeField] private float moveSpeed = 20f;
-    private float horizontalInput;
-    private float forwardInput;
+    [SerializeField] private float _moveSpeed = 20f;
+    private float _horizontalInput;
+    private float _forwardInput;
 
-    private bool canEnterCar = false;
+    private bool _canEnterCar = false;
     public bool isInCar = false;
 
     // Start is called before the first frame update
@@ -27,32 +28,34 @@ public class PlayerCharacter : MonoBehaviour
     void Update()
     {
         // Get the horizontal and vertical inputs 
-        horizontalInput = Input.GetAxis("Horizontal") * moveSpeed;
-        forwardInput = Input.GetAxis("Vertical") * moveSpeed;
+        _horizontalInput = Input.GetAxis("Horizontal") * _moveSpeed;
+        _forwardInput = Input.GetAxis("Vertical") * _moveSpeed;
 
-        if (canEnterCar && Input.GetKeyDown(KeyCode.E) && !isInCar)
+        if (_canEnterCar && Input.GetKeyDown(KeyCode.E) && !isInCar)
         {
             isInCar = true;
             _collider.isTrigger = true;
-            CurrentCar.GetComponent<IVehicle>().PlayerEnterCar();
-            playerCamera.GetComponent<PlayerCamera>().PlayerEnterCar();
+            _currentCar.GetComponent<IVehicle>().PlayerEnterCar();
+            _playerCamera.GetComponent<PlayerCamera>().PlayerEnterCar();
+            UI.GetComponent<UI>().SetEnterText(false);
         }
 
         else if(isInCar && Input.GetKeyDown(KeyCode.E))
         {
             isInCar = false;
-            canEnterCar = false;
+            _canEnterCar = false;
+            UI.GetComponent<UI>().SetEnterText(false);
             _collider.isTrigger = false;
-            CurrentCar.GetComponent<IVehicle>().PlayerExitCar();
-            playerCamera.GetComponent<PlayerCamera>().PlayerExitCar();
-            transform.position = CurrentCar.transform.position + new Vector3(-4f,5f,0f);
-            CurrentCar = null;
+            _currentCar.GetComponent<IVehicle>().PlayerExitCar();
+            _playerCamera.GetComponent<PlayerCamera>().PlayerExitCar();
+            transform.position = _currentCar.transform.position + new Vector3(-4f,5f,0f);
+            _currentCar = null;
         }
 
         if (isInCar)
         {
-            transform.position = CurrentCar.transform.position;
-            transform.rotation = CurrentCar.transform.rotation;
+            transform.position = _currentCar.transform.position;
+            transform.rotation = _currentCar.transform.rotation;
         }
     }
 
@@ -60,7 +63,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         if (!isInCar)
         {
-            Vector3 move = transform.right * horizontalInput + transform.forward * forwardInput;
+            Vector3 move = transform.right * _horizontalInput + transform.forward * _forwardInput;
             rb.MovePosition(transform.position + (move * Time.deltaTime));
             //rb.velocity = move;
         }
@@ -70,9 +73,10 @@ public class PlayerCharacter : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Car"))
         {
+            UI.GetComponent<UI>().SetEnterText(true);
             Debug.Log("Collision Enter");
-            canEnterCar = true;
-            CurrentCar = collision.gameObject;  
+            _canEnterCar = true;
+            _currentCar = collision.gameObject;  
         }
             
     }
@@ -81,9 +85,9 @@ public class PlayerCharacter : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Car") && !isInCar)
         {
-            Debug.Log("Collision exit");
-            canEnterCar = false;
-            CurrentCar = null;
+            UI.GetComponent<UI>().SetEnterText(false);
+            _canEnterCar = false;
+            _currentCar = null;
         }
     }
 }

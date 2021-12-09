@@ -5,18 +5,20 @@ using TMPro;
 
 public class UI : MonoBehaviour
 {
-    private int score = 0;
+    private int _score = 0;
 
     [SerializeField]private TMP_Text scoreText;
     [SerializeField] private TMP_Text TitleText;
     [SerializeField]private TMP_Text messageText;
+    [SerializeField] private TMP_Text enterCarText;
     // Start is called before the first frame update
     void Start()
     {
         Obstacle.destroyedEvent += AddScore;
-        SetScoreText(score);
+        SetScoreText(_score);
         TitleText.text = null;
         messageText.text = null;
+        enterCarText.text = null;
     }
 
     private void OnDisable()
@@ -26,13 +28,25 @@ public class UI : MonoBehaviour
 
     public void AddScore()
     {
-        score++;
-        SetScoreText(score);
+        _score++;
+        SetScoreText(_score);
     }
 
     public void SetScoreText(int points)
     {
         scoreText.text = "Score: " + points.ToString();
+    }
+
+    public void SetEnterText(bool canEnter)
+    {
+        if (canEnter)
+        {
+            enterCarText.text = "Press 'E' \n to enter";
+        }
+        else
+        {
+            enterCarText.text = null;
+        }
     }
 
     public void ShowAchievment(string achievmentTitle, string achievmentDescription)
