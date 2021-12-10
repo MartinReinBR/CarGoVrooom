@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField]private float _mouseSensitivity = 200f;
+    [SerializeField]private float _mouseSensitivity = 150f;
     private float _xRotation = 0f;
 
     [SerializeField] private GameObject _player;
@@ -38,21 +38,28 @@ public class PlayerCamera : MonoBehaviour
     public void PlayerEnterCar()
     {
         isPlayerInCar = true;     
-        transform.position = _player.transform.position + _cameraOffsetCar;
-        StartCoroutine(AdjustCarCamera());
+        StartCoroutine(AdjustCarCamera(true));
     }
 
     public void PlayerExitCar()
     {
         isPlayerInCar = false;
-        transform.position = _player.transform.position + _cameraOffset;
+        StartCoroutine(AdjustCarCamera(false));
     }
 
-    IEnumerator AdjustCarCamera()
+    IEnumerator AdjustCarCamera(bool enteringCar)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.05f);
 
-        transform.localRotation = Quaternion.Euler(10f, 0f, 0f);
-        transform.position = _player.transform.position + _cameraOffsetCar;
+        if (enteringCar)
+        {
+            transform.localRotation = Quaternion.Euler(10f, 0f, 0f);
+            transform.localPosition = _cameraOffsetCar;
+        }
+        else if (!enteringCar)
+        {
+            transform.localPosition = _cameraOffset;
+        }
+
     }
 }

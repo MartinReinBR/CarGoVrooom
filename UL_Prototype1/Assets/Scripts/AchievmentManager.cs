@@ -39,7 +39,7 @@ public class AchievmentManager : MonoBehaviour
 
         achievments = new List<Achievment>();
         achievments.Add(new Achievment("First Blood!", "Destroy your first Obstacle.", (object o) => _score == 1));
-        achievments.Add(new Achievment("Five Kills!", "Destroy five Obstacles", (object o) => _score == 5));
+        achievments.Add(new Achievment("Penta Kill!", "Destroy five Obstacles", (object o) => _score == 5));
         achievments.Add(new Achievment("TENtaKILL!", "Destroy ten Obstacles", (object o) => _score == 10));
     }
 

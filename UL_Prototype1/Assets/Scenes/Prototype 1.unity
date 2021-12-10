@@ -660,7 +660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
   m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 1.98, z: -5}
+  m_LocalPosition: {x: 0, y: 2, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1345067875}
@@ -678,8 +678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a016fe1e3a8b4a4391086d80c0c5aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mouseSensitivity: 200
-  player: {fileID: 1345067870}
+  _mouseSensitivity: 150
+  _player: {fileID: 1345067870}
   isPlayerInCar: 0
 --- !u!1001 &603750546
 PrefabInstance:

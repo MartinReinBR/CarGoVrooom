@@ -78,10 +78,11 @@ public class TankVehicle : MonoBehaviour, IVehicle
     private void FixedUpdate()
     {
         if (_movementState != 0)
-        {
-            transform.Rotate(Vector3.up, Time.deltaTime * _turnSpeed * _horizontalInput);
+        {         
             _rb.MovePosition(transform.position + (transform.forward * _moveSpeed * Time.deltaTime));
         }
+
+        transform.Rotate(Vector3.up, Time.deltaTime * _turnSpeed * _horizontalInput);
     }
 
     public void PlayerEnterCar()
