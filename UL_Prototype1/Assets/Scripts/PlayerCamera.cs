@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] private float _mouseSensitivity = 200f;
-    private float xRotation = 0f;
+    [SerializeField]private float _mouseSensitivity = 200f;
+    private float _xRotation = 0f;
 
-    public GameObject player;
+    [SerializeField] private GameObject _player;
     private Vector3 _cameraOffset = new Vector3(0, 2, -5);
     private Vector3 _cameraOffsetCar = new Vector3(0, 5, -8);
 
@@ -16,7 +16,7 @@ public class PlayerCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = player.transform.position + _cameraOffset;
+        transform.position = _player.transform.position + _cameraOffset;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -27,32 +27,32 @@ public class PlayerCamera : MonoBehaviour
             float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
 
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            _xRotation -= mouseY;
+            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-            player.transform.Rotate(Vector3.up * mouseX);
+            transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+            _player.transform.Rotate(Vector3.up * mouseX);
         }
     }
 
     public void PlayerEnterCar()
     {
         isPlayerInCar = true;     
-        transform.localRotation = Quaternion.Euler(10f, 0f, 0f);
-        transform.position = player.transform.position + _cameraOffsetCar;
+        transform.position = _player.transform.position + _cameraOffsetCar;
         StartCoroutine(AdjustCarCamera());
     }
 
     public void PlayerExitCar()
     {
         isPlayerInCar = false;
-        transform.position = player.transform.position + _cameraOffset;
+        transform.position = _player.transform.position + _cameraOffset;
     }
 
     IEnumerator AdjustCarCamera()
     {
         yield return new WaitForSeconds(1f);
 
-        transform.position = player.transform.position + _cameraOffsetCar;
+        transform.localRotation = Quaternion.Euler(10f, 0f, 0f);
+        transform.position = _player.transform.position + _cameraOffsetCar;
     }
 }
