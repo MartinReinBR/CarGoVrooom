@@ -3,7 +3,7 @@
 Martin Blomquist Rendahl
 This project is for my Design Patterns course in school.
 
-This is a Prototype for a Car game. It doesnt have a complete gameloop, The focus of the project is on the Systems that i want to create so i can implement them in other games.
+This is a Prototype for a Car game. It doesnt have a complete gameloop, The focus of the project is on the Systems that was created for learning and implementing in other projects.
 
 Patterns: 
 State pattern: in the Update() method in 'TankVehicle.cs' and 'BlueVehicle.cs'. The movement of the car is based on a state design pattern, by pressing two diffirent buttons you can increase and decrease the movement speed of the car. The state variable is an int that can be -1(reverse), 0(Not moving), and 1-4(moving forward at diffirent speeds).
