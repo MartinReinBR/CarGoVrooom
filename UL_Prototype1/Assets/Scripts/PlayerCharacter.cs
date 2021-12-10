@@ -74,7 +74,6 @@ public class PlayerCharacter : MonoBehaviour
         if (collision.gameObject.CompareTag("Car"))
         {
             UI.GetComponent<UI>().SetEnterText(true);
-            Debug.Log("Collision Enter");
             _canEnterCar = true;
             _currentCar = collision.gameObject;  
         }
