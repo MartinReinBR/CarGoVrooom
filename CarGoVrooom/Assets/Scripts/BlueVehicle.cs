@@ -4,12 +4,12 @@ public class BlueVehicle : MonoBehaviour ,IVehicle
 {
     private Rigidbody _rb;
 
-    [SerializeField] private float _moveSpeed = 20f;
+    private float _moveSpeed = 20f;
     [SerializeField] private float _turnSpeed = 70f;
-    [SerializeField] private float _breakThrust = 500f;
+    private float _breakThrust = 500f;
     private float _horizontalInput;
 
-    [SerializeField] private int _movementState = 0;
+    private int _movementState = 0;
     private bool _playerInCar = false;
 
     // Start is called before the first frame update

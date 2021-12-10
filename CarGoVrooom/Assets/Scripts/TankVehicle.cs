@@ -4,12 +4,12 @@ public class TankVehicle : MonoBehaviour, IVehicle
 {
     private Rigidbody _rb;
 
-    [SerializeField] private float _moveSpeed = 20f;
-    [SerializeField] private float _turnSpeed = 30f;
-    [SerializeField] private float _breakThrust = 500f;
+    private float _moveSpeed = 0f;
+    [SerializeField] private float _turnSpeed = 40f;
+    private float _breakThrust = 500f;
     private float _horizontalInput;
 
-    [SerializeField] private int _movementState = 0;
+    private int _movementState = 0;
     private bool _playerInCar = false;
 
     // Start is called before the first frame update
@@ -43,7 +43,7 @@ public class TankVehicle : MonoBehaviour, IVehicle
             switch (_movementState)
             {
                 case -1:
-                    _moveSpeed = -10f;
+                    _moveSpeed = -8f;
                     _breakThrust = 0f;
                     break;
                 case 0:
@@ -51,19 +51,19 @@ public class TankVehicle : MonoBehaviour, IVehicle
                     _breakThrust = 0f;
                     break;
                 case 1:
-                    _moveSpeed = 10f;
+                    _moveSpeed = 8f;
                     _breakThrust = 2000f;
                     break;
                 case 2:
-                    _moveSpeed = 20f;
+                    _moveSpeed = 16f;
                     _breakThrust = 4000f;
                     break;
                 case 3:
-                    _moveSpeed = 30f;
+                    _moveSpeed = 24f;
                     _breakThrust = 6000f;
                     break;
                 case 4:
-                    _moveSpeed = 40f;
+                    _moveSpeed = 32f;
                     _breakThrust = 8000f;
                     break;
                 default:
